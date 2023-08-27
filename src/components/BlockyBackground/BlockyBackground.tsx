@@ -7,6 +7,7 @@ export default function BlockyBackground({ data }: any) {
         <Block
           map={data.map}
           row={row}
+          config={data.config}
           column={column}
           key={`${row}-${column}`}
         />
@@ -30,11 +31,16 @@ function Block(data: any) {
         opacity: 0.5,
         transform: "scale(0.05)",
         borderRadius: "50%",
-        animation: "blockyLoad 0.5s ease-in-out forwards",
+        animation: "blockyLoad 5s linear forwards",
         animationDelay:
-          (data.map[data.row][data.column].x +
-            data.map[data.row][data.column].y) /
+          (Math.abs(
+            data.map[data.row][data.column].x - (data.config.numberY - 1) / 2
+          ) +
+            Math.abs(
+              data.map[data.row][data.column].y - (data.config.numberX - 1) / 2
+            )) /
             10 +
+          (data.config.delay ?? 0) +
           "s",
       }}
     />
